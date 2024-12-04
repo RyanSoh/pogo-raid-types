@@ -53,8 +53,7 @@ function calculateWeaknessAndAvoid(input) {
   // Prepare Pokémon Go text
   const weaknessText = finalWeaknesses.join(",");
   const avoidText = avoidUsing.map(type => `!${type}`).join("&");
-  const pokeGoText = `${weaknessText}&${avoidText}`;
-
+  const pokeGoText = `${weaknessText}&${avoidText}`
   return {
     weaknesses: weaknessText || "No weaknesses found",
     avoidUsing: avoidUsing.join(", ") || "None",
@@ -68,8 +67,8 @@ function calculateWeaknessAndAvoid(input) {
 document.getElementById("calculateWeakness").addEventListener("click", () => {
   const input = document.getElementById("pokemonTypes").value;
   const result = calculateWeaknessAndAvoid(input);
-  document.getElementById("weaknessList").textContent = `Weak against: ${result.weaknesses}`;
-  document.getElementById("avoidList").textContent = `Avoid using: ${result.avoidUsing}`;
+  document.getElementById("weaknessList").textContent = `${result.weaknesses}`;
+  document.getElementById("avoidList").textContent = `${result.avoidUsing}`;
   document.getElementById("pokeGoText").textContent = result.pokeGoText;
 });
 
