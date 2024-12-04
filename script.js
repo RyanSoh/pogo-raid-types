@@ -1,4 +1,4 @@
-// Pokémon type data
+// Pokémon type data (unchanged)
 const typeData = {
   Normal: { strongAgainst: [], weakAgainst: ["Rock", "Steel", "Fighting"] },
   Fighting: { strongAgainst: ["Normal", "Rock", "Steel", "Ice", "Dark"], weakAgainst: ["Flying", "Poison", "Psychic", "Ghost", "Fairy"] },
@@ -20,35 +20,57 @@ const typeData = {
   Fairy: { strongAgainst: ["Fighting", "Bug", "Dragon", "Dark"], weakAgainst: ["Poison", "Steel", "Fire"] },
 };
 
-// Calculate weaknesses
-function calculateWeakness(input) {
+// Calculate weaknesses and strengths
+function calculateWeaknessAndAvoid(input) {
   const types = input
     .split(",")
     .map(t => t.trim().toLowerCase()); // Convert to lowercase for case-insensitivity
-  const combinedWeaknesses = new Set();
-  const combinedStrengths = new Set();
 
+  const allWeaknesses = [];
+  const allStrengths = [];
+
+  // Collect all weaknesses and strengths for all input types
   types.forEach(type => {
     const typeKey = Object.keys(typeData).find(
       key => key.toLowerCase() === type // Match regardless of case
     );
     if (typeKey) {
-      typeData[typeKey].weakAgainst.forEach(weak => combinedWeaknesses.add(weak));
-      typeData[typeKey].strongAgainst.forEach(strong => combinedStrengths.add(strong));
+      allWeaknesses.push(...typeData[typeKey].weakAgainst);
+      allStrengths.push(...typeData[typeKey].strongAgainst);
     }
   });
 
-  // Remove strengths from weaknesses
-  combinedStrengths.forEach(strong => combinedWeaknesses.delete(strong));
+  // Remove duplicates by converting to sets
+  const combinedWeaknesses = [...new Set(allWeaknesses)];
+  const combinedStrengths = [...new Set(allStrengths)];
 
-  return Array.from(combinedWeaknesses).join(", ");
+  // Remove strengths from weaknesses
+  const finalWeaknesses = combinedWeaknesses.filter(weak => !combinedStrengths.includes(weak));
+
+  // Calculate avoidUsing: types that are strong but not weak
+  const avoidUsing = combinedStrengths.filter(strong => !combinedWeaknesses.includes(strong));
+
+  // Prepare Pokémon Go text
+  const weaknessText = finalWeaknesses.join(",");
+  const avoidText = avoidUsing.map(type => `!${type}`).join("&");
+  const pokeGoText = `${weaknessText}&${avoidText}`;
+
+  return {
+    weaknesses: weaknessText || "No weaknesses found",
+    avoidUsing: avoidUsing.join(", ") || "None",
+    pokeGoText: pokeGoText || "N/A",
+  };
 }
+
+
 
 // Trigger calculation on button click
 document.getElementById("calculateWeakness").addEventListener("click", () => {
   const input = document.getElementById("pokemonTypes").value;
-  const result = calculateWeakness(input);
-  document.getElementById("weaknessList").textContent = result || "No weaknesses found.";
+  const result = calculateWeaknessAndAvoid(input);
+  document.getElementById("weaknessList").textContent = `Weak against: ${result.weaknesses}`;
+  document.getElementById("avoidList").textContent = `Avoid using: ${result.avoidUsing}`;
+  document.getElementById("pokeGoOutput").textContent = result.pokeGoText;
 });
 
 // Trigger calculation on Enter key
@@ -57,4 +79,5 @@ document.getElementById("pokemonTypes").addEventListener("keypress", event => {
     document.getElementById("calculateWeakness").click();
   }
 });
+
 
