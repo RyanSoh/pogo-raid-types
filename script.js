@@ -70,7 +70,7 @@ document.getElementById("calculateWeakness").addEventListener("click", () => {
   const result = calculateWeaknessAndAvoid(input);
   document.getElementById("weaknessList").textContent = `Weak against: ${result.weaknesses}`;
   document.getElementById("avoidList").textContent = `Avoid using: ${result.avoidUsing}`;
-  document.getElementById("pokeGoOutput").textContent = result.pokeGoText;
+  document.getElementById("pokeGoText").textContent = result.pokeGoText;
 });
 
 // Trigger calculation on Enter key
