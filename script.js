@@ -51,9 +51,9 @@ function calculateWeaknessAndAvoid(input) {
   const avoidUsing = combinedStrengths.filter(strong => !combinedWeaknesses.includes(strong));
 
   // Prepare Pokémon Go text
-  const weaknessText = finalWeaknesses.join(",").toLowerCase();
-  const avoidText = avoidUsing.map(type => `!${type}`).join("&").toLowerCase();
-  const pokeGoText = `${weaknessText}&${avoidText}`
+  const weaknessText = finalWeaknesses.join(",@").toLowerCase();
+  const avoidText = avoidUsing.map(type => `!${type}`).join("&@").toLowerCase();
+  const pokeGoText = `@${weaknessText}&@${avoidText}`
   return {
     weaknesses: finalWeaknesses.join(", ") || "No weaknesses found",
     avoidUsing: avoidUsing.join(", ") || "None",
