@@ -4,29 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokémon Weakness Calculator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px 0;
-    }
-    .output {
-      margin-top: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Pokémon Weakness Calculator</h1>
-  <label for="pokemonTypes">Enter Pokémon types (comma-separated):</label><br>
-  <input type="text" id="pokemonTypes" placeholder="e.g., Fire, Flying">
-  <button id="calculateWeakness">Calculate</button>
-  <div class="output">
-    <p id="weaknessList"></p>
-    <p id="avoidList"></p>
-    <p><strong>Pokémon Go Text:</strong> <span id="pokeGoOutput"></span></p>
+  <div class="container">
+    <h1>Pokémon Weakness Calculator</h1>
+    <p>Enter the Pokémon types (comma-separated):</p>
+    <input type="text" id="pokemonTypes" placeholder="e.g., Flying, Poison">
+    <button id="calculateWeakness">Calculate Weakness</button>
+    <div id="output">
+      <h3>Weaknesses:</h3>
+      <p id="weaknessList">Enter types above and click Calculate.</p>
+      <h3>Pokémon Go Text:</h3>
+      <p id="pokeGoText">Enter types above and click Calculate.</p>
+    </div>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
+
