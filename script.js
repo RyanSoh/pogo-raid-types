@@ -22,14 +22,19 @@ const typeData = {
 
 // Calculate weaknesses
 function calculateWeakness(input) {
-  const types = input.split(",").map(t => t.trim());
+  const types = input
+    .split(",")
+    .map(t => t.trim().toLowerCase()); // Convert to lowercase for case-insensitivity
   const combinedWeaknesses = new Set();
   const combinedStrengths = new Set();
 
   types.forEach(type => {
-    if (typeData[type]) {
-      typeData[type].weakAgainst.forEach(weak => combinedWeaknesses.add(weak));
-      typeData[type].strongAgainst.forEach(strong => combinedStrengths.add(strong));
+    const typeKey = Object.keys(typeData).find(
+      key => key.toLowerCase() === type // Match regardless of case
+    );
+    if (typeKey) {
+      typeData[typeKey].weakAgainst.forEach(weak => combinedWeaknesses.add(weak));
+      typeData[typeKey].strongAgainst.forEach(strong => combinedStrengths.add(strong));
     }
   });
 
@@ -39,9 +44,17 @@ function calculateWeakness(input) {
   return Array.from(combinedWeaknesses).join(", ");
 }
 
-// Event Listener
+// Trigger calculation on button click
 document.getElementById("calculateWeakness").addEventListener("click", () => {
   const input = document.getElementById("pokemonTypes").value;
   const result = calculateWeakness(input);
   document.getElementById("weaknessList").textContent = result || "No weaknesses found.";
 });
+
+// Trigger calculation on Enter key
+document.getElementById("pokemonTypes").addEventListener("keypress", event => {
+  if (event.key === "Enter") {
+    document.getElementById("calculateWeakness").click();
+  }
+});
+
