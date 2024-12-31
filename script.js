@@ -168,7 +168,9 @@ function calculateTypeEffectiveness(input) {
 
 // Trigger calculation on button click
 document.getElementById("calculateWeakness").addEventListener("click", () => {
+  console.log("Button clicked!");
   const input = document.getElementById("pokemonTypes").value;
+  console.log(input);
   const result = calculateTypeEffectiveness(input);
   document.getElementById("weaknessList").textContent = result.weaknesses;
   document.getElementById("strongList").textContent = result.strengths;
