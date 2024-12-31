@@ -134,26 +134,32 @@ function calculateTypeEffectiveness(input) {
     }
   });
 
+  // Remove duplicates
+  const uniqueWeaknesses = [...new Set(allWeaknesses)];
+  const uniqueStrengths = [...new Set(allStrengths)];
+  const uniqueVulnerabilities = [...new Set(allVulnerabilities)];
+  const uniqueResistances = [...new Set(allResistances)];
+
   // Filter weaknesses and vulnerabilities
-  const filteredWeaknesses = allWeaknesses.filter(weak => !allStrengths.includes(weak));
-  const filteredVulnerabilities = allVulnerabilities.filter(vuln => !allResistances.includes(vuln));
+  const filteredWeaknesses = uniqueWeaknesses.filter(weak => !uniqueStrengths.includes(weak));
+  const filteredVulnerabilities = uniqueVulnerabilities.filter(vuln => !uniqueResistances.includes(vuln));
 
   // Prepare output strings
   const weaknesses = filteredWeaknesses.join(",") || "None";
   const vulnerabilities = filteredVulnerabilities.join(",") || "None";
-  const strengths = allStrengths.join(",") || "None";
-  const resistances = allResistances.join(",") || "None";
+  const strengths = uniqueStrengths.join(",") || "None";
+  const resistances = uniqueResistances.join(",") || "None";
 
-  // Create Pokémon Go text
+  // Create Pokémon Go text (no spaces and lowercase)
   let pokeGoText;
   if (weaknesses === "None" && vulnerabilities === "None") {
     pokeGoText = "NA";
   } else if (weaknesses === "None") {
-    pokeGoText = vulnerabilities;
+    pokeGoText = vulnerabilities.replace(/ /g, "").toLowerCase();
   } else if (vulnerabilities === "None") {
-    pokeGoText = weaknesses;
+    pokeGoText = weaknesses.replace(/ /g, "").toLowerCase();
   } else {
-    pokeGoText = `${weaknesses} & ${vulnerabilities}`;
+    pokeGoText = `${weaknesses.replace(/ /g, "").toLowerCase()}&${vulnerabilities.replace(/ /g, "").toLowerCase()}`;
   }
 
   return {
@@ -165,12 +171,9 @@ function calculateTypeEffectiveness(input) {
   };
 }
 
-
 // Trigger calculation on button click
 document.getElementById("calculateWeakness").addEventListener("click", () => {
-  console.log("Button clicked!");
   const input = document.getElementById("pokemonTypes").value;
-  console.log(input);
   const result = calculateTypeEffectiveness(input);
   document.getElementById("weaknessList").textContent = result.weaknesses;
   document.getElementById("strongList").textContent = result.strengths;
