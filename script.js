@@ -134,17 +134,34 @@ function calculateTypeEffectiveness(input) {
     }
   });
 
+  // Filter weaknesses and vulnerabilities
+  const filteredWeaknesses = allWeaknesses.filter(weak => !allStrengths.includes(weak));
+  const filteredVulnerabilities = allVulnerabilities.filter(vuln => !allResistances.includes(vuln));
+
   // Prepare output strings
-  const weaknesses = allWeaknesses.join(",") || "No weaknesses";
-  const vulnerabilities = allVulnerabilities.map(v => `@${v}`).join(",") || "None";
+  const weaknesses = filteredWeaknesses.join(",") || "No weaknesses";
+  const vulnerabilities = filteredVulnerabilities.map(v => `@${v}`).join(",") || "None";
   const strengths = allStrengths.join(",") || "No strengths";
   const resistances = allResistances.join(",") || "No resistances";
-  const pokeGoText = `${weaknesses}&${vulnerabilities}`;
+  if (weaknesses == "No weakness" and vulnerabilities == "None) {
+    const pokeGoText = 'NA'
+  }
+  else if (weakness == "No weakness") {
+    const pokeGoText = vulnerabilities;
+  }
+  else if (vulnerabilities == "None") {
+    const pokeGoText = weakness;
+  }
+  else {
+    const pokeGoText = `${weaknesses}&${vulnerabilities}`;
+  }
+
 
   return {
     weaknesses,
     strengths,
     vulnerabilities,
+    resistances,
     pokeGoText,
   };
 }
