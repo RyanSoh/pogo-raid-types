@@ -148,9 +148,7 @@ function calculateTypeEffectiveness(input) {
 
   // Prepare output strings
   const weaknesses = filteredWeaknesses.join(",") || "None";
-  const vulnerabilities = filteredVulnerabilities.join(",") || "None";
-  const strengths = filteredStrengths.join(",") || "None";
-  const resistances = filteredResistances.join(",") || "None";
+  const vulnerabilities = filteredVulnerabilities.join(",@") || "None";
 
   // Create Pokémon Go text (no spaces and lowercase)
   let pokeGoText;
@@ -165,10 +163,6 @@ function calculateTypeEffectiveness(input) {
   }
 
   return {
-    weaknesses,
-    strengths,
-    vulnerabilities,
-    resistances,
     pokeGoText,
   };
 }
@@ -177,10 +171,6 @@ function calculateTypeEffectiveness(input) {
 document.getElementById("calculateWeakness").addEventListener("click", () => {
   const input = document.getElementById("pokemonTypes").value;
   const result = calculateTypeEffectiveness(input);
-  document.getElementById("weaknessList").textContent = result.weaknesses;
-  document.getElementById("strongList").textContent = result.strengths;
-  document.getElementById("vulnerableList").textContent = result.vulnerabilities;
-  document.getElementById("resistanceList").textContent = result.resistances;
   document.getElementById("pokeGoText").textContent = result.pokeGoText;
 });
 
