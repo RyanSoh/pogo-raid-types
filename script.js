@@ -139,16 +139,16 @@ function calculateTypeEffectiveness(input) {
   const filteredVulnerabilities = allVulnerabilities.filter(vuln => !allResistances.includes(vuln));
 
   // Prepare output strings
-  const weaknesses = filteredWeaknesses.join(",") || "No weaknesses";
-  const vulnerabilities = filteredVulnerabilities.map(v => `@${v}`).join(",") || "None";
-  const strengths = allStrengths.join(",") || "No strengths";
-  const resistances = allResistances.join(",") || "No resistances";
+  const weaknesses = filteredWeaknesses.join(",") || "None";
+  const vulnerabilities = filteredVulnerabilities.join(",") || "None";
+  const strengths = allStrengths.join(",") || "None";
+  const resistances = allResistances.join(",") || "None";
 
   // Create Pokémon Go text
   let pokeGoText;
-  if (weaknesses === "No weaknesses" && vulnerabilities === "None") {
+  if (weaknesses === "None" && vulnerabilities === "None") {
     pokeGoText = "NA";
-  } else if (weaknesses === "No weaknesses") {
+  } else if (weaknesses === "None") {
     pokeGoText = vulnerabilities;
   } else if (vulnerabilities === "None") {
     pokeGoText = weaknesses;
