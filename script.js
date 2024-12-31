@@ -171,8 +171,8 @@ document.getElementById("calculateWeakness").addEventListener("click", () => {
   const input = document.getElementById("pokemonTypes").value;
   const result = calculateTypeEffectiveness(input);
   document.getElementById("weaknessList").textContent = result.weaknesses;
-  document.getElementById("strengthList").textContent = result.strengths;
-  document.getElementById("vulnerabilityList").textContent = result.vulnerabilities;
+  document.getElementById("stronList").textContent = result.strengths;
+  document.getElementById("vulnerableList").textContent = result.vulnerabilities;
   document.getElementById("resistanceList").textContent = result.resistances;
   document.getElementById("pokeGoText").textContent = result.pokeGoText;
 });
