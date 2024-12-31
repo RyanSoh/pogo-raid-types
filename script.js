@@ -119,6 +119,7 @@ function calculateTypeEffectiveness(input) {
   const allWeaknesses = [];
   const allVulnerabilities = [];
   const allStrengths = [];
+  const allResistances = [];
 
   // Collect data for all input types
   types.forEach(type => {
@@ -129,6 +130,7 @@ function calculateTypeEffectiveness(input) {
       allWeaknesses.push(...typeData[typeKey].weakAgainst);
       allStrengths.push(...typeData[typeKey].strongAgainst);
       allVulnerabilities.push(...typeData[typeKey].vulnerableAgainst);
+      allResistances.push(...typeData[typeKey].resistantTo);
     }
   });
 
@@ -136,6 +138,7 @@ function calculateTypeEffectiveness(input) {
   const weaknesses = allWeaknesses.join(",") || "No weaknesses";
   const vulnerabilities = allVulnerabilities.map(v => `@${v}`).join(",") || "None";
   const strengths = allStrengths.join(",") || "No strengths";
+  const resistances = allResistances.join(",") || "No resistances";
   const pokeGoText = `${weaknesses}&${vulnerabilities}`;
 
   return {
@@ -153,6 +156,7 @@ document.getElementById("calculateWeakness").addEventListener("click", () => {
   document.getElementById("weaknessList").textContent = result.weaknesses;
   document.getElementById("strengthList").textContent = result.strengths;
   document.getElementById("vulnerabilityList").textContent = result.vulnerabilities;
+  document.getElementById("resistancesList").textContent = result.resistances;
   document.getElementById("pokeGoText").textContent = result.pokeGoText;
 });
 
