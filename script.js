@@ -156,7 +156,7 @@ document.getElementById("calculateWeakness").addEventListener("click", () => {
   document.getElementById("weaknessList").textContent = result.weaknesses;
   document.getElementById("strengthList").textContent = result.strengths;
   document.getElementById("vulnerabilityList").textContent = result.vulnerabilities;
-  document.getElementById("resistancesList").textContent = result.resistances;
+  document.getElementById("resistanceList").textContent = result.resistances;
   document.getElementById("pokeGoText").textContent = result.pokeGoText;
 });
 
