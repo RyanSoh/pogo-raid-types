@@ -143,19 +143,18 @@ function calculateTypeEffectiveness(input) {
   const vulnerabilities = filteredVulnerabilities.map(v => `@${v}`).join(",") || "None";
   const strengths = allStrengths.join(",") || "No strengths";
   const resistances = allResistances.join(",") || "No resistances";
-  if (weaknesses == "No weakness" and vulnerabilities == "None) {
-    const pokeGoText = 'NA'
-  }
-  else if (weakness == "No weakness") {
-    const pokeGoText = vulnerabilities;
-  }
-  else if (vulnerabilities == "None") {
-    const pokeGoText = weakness;
-  }
-  else {
-    const pokeGoText = `${weaknesses}&${vulnerabilities}`;
-  }
 
+  // Create Pokémon Go text
+  let pokeGoText;
+  if (weaknesses === "No weaknesses" && vulnerabilities === "None") {
+    pokeGoText = "NA";
+  } else if (weaknesses === "No weaknesses") {
+    pokeGoText = vulnerabilities;
+  } else if (vulnerabilities === "None") {
+    pokeGoText = weaknesses;
+  } else {
+    pokeGoText = `${weaknesses} & ${vulnerabilities}`;
+  }
 
   return {
     weaknesses,
@@ -165,6 +164,7 @@ function calculateTypeEffectiveness(input) {
     pokeGoText,
   };
 }
+
 
 // Trigger calculation on button click
 document.getElementById("calculateWeakness").addEventListener("click", () => {
