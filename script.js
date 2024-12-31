@@ -159,7 +159,7 @@ function calculateTypeEffectiveness(input) {
   } else if (vulnerabilities === "None") {
     pokeGoText = weaknesses.replace(/ /g, "").toLowerCase();
   } else {
-    pokeGoText = `${weaknesses.replace(/ /g, "").toLowerCase()}&${vulnerabilities.replace(/ /g, "").toLowerCase()}`;
+    pokeGoText = `${weaknesses.replace(/ /g, "").toLowerCase()}&@${vulnerabilities.replace(/ /g, "").toLowerCase()}`;
   }
 
   return {
