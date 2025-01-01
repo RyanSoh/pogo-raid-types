@@ -148,22 +148,38 @@ function calculateTypeEffectiveness(input) {
 
   // Prepare output strings
   const weaknesses = filteredWeaknesses.join(",") || "None";
-  const vulnerabilities = filteredVulnerabilities.join(",@") || "None";
+  const vulnerabilities1 = filteredVulnerabilities.join(",@1") || "None";
+  const vulnerabilities2 = filteredVulnerabilities.join(",@2") || "None";
+  const vulnerabilities3 = filteredVulnerabilities.join(",@3") || "None";
+  const strenghts = filteredStrengths.join(",") || "None";
+  const resistances filteredResistances.join(",!@") || "None";
 
   // Create Pokémon Go text (no spaces and lowercase)
   let pokeGoText;
-  if (weaknesses === "None" && vulnerabilities === "None") {
+  let pokeGoBackup;
+  if (weaknesses === "None" && vulnerabilities1 === "None") {
     pokeGoText = "NA";
   } else if (weaknesses === "None") {
-    pokeGoText = vulnerabilities.replace(/ /g, "").toLowerCase();
-  } else if (vulnerabilities === "None") {
+    pokeGoText = `@1${vulnerabilities1.replace(/ /g, "").toLowerCase()}`;
+  } else if (vulnerabilities1 === "None") {
     pokeGoText = weaknesses.replace(/ /g, "").toLowerCase();
   } else {
-    pokeGoText = `${weaknesses.replace(/ /g, "").toLowerCase()}&@${vulnerabilities.replace(/ /g, "").toLowerCase()}`;
+    pokeGoText = `${weaknesses.replace(/ /g, "").toLowerCase()}&@1${vulnerabilities1.replace(/ /g, "").toLowerCase()}&@2${vulnerabilities2.replace(/ /g, "").toLowerCase()},@3${vulnerabilities3.replace(/ /g, "").toLowerCase()}`;
   }
+
+  if (strengths === "None" && resistances === "None") {
+    pokeGoBackup = "NA";
+  } else if (strenghts === "None") {
+    pokeGoBackup = `@!${resistances.replace(/ /g, "").toLowerCase()}`;
+  } else if (resistances === "None") {
+    pokeGoBackup = strenghts.replace(/ /g, "").toLowerCase();
+  } else {
+    pokeGoBackup = `${strenghts.replace(/ /g, "").toLowerCase()}&!@${{resistances.replace(/ /g, "").toLowerCase()}`;
+  
 
   return {
     pokeGoText,
+    pokeGoBackup,
   };
 }
 
@@ -172,6 +188,7 @@ document.getElementById("calculateWeakness").addEventListener("click", () => {
   const input = document.getElementById("pokemonTypes").value;
   const result = calculateTypeEffectiveness(input);
   document.getElementById("pokeGoText").textContent = result.pokeGoText;
+  document.getElementById("pokeGoBackup").textContent = result.pokeGoBackup;
 });
 
 // Trigger calculation on Enter key
