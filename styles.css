@@ -49,3 +49,9 @@ button:hover {
 #output {
   margin-top: 20px;
 }
+
+#pokeGoText,
+#pokeGoBackup {
+  font-size: 8px;
+}
+
