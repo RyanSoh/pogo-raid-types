@@ -151,7 +151,7 @@ function calculateTypeEffectiveness(input) {
   const vulnerabilities1 = filteredVulnerabilities.join(",@1") || "None";
   const vulnerabilities2 = filteredVulnerabilities.join(",@2") || "None";
   const vulnerabilities3 = filteredVulnerabilities.join(",@3") || "None";
-  const strenghts = filteredStrengths.join(",") || "None";
+  const strengths = filteredStrengths.join(",") || "None";
   const resistances = filteredResistances.join(",!@") || "None";
 
   // Create Pokémon Go text (no spaces and lowercase)
@@ -169,12 +169,13 @@ function calculateTypeEffectiveness(input) {
 
   if (strengths === "None" && resistances === "None") {
     pokeGoBackup = "NA";
-  } else if (strenghts === "None") {
+  } else if (strengths === "None") {
     pokeGoBackup = `@!${resistances.replace(/ /g, "").toLowerCase()}`;
   } else if (resistances === "None") {
     pokeGoBackup = strengths.replace(/ /g, "").toLowerCase();
   } else {
     pokeGoBackup = `${strengths.replace(/ /g, "").toLowerCase()}&!@${resistances.replace(/ /g, "").toLowerCase()}`;
+  }
   
 
   return {
